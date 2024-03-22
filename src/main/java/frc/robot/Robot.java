@@ -13,11 +13,11 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 public class Robot extends TimedRobot {
   XboxController driver = new XboxController(0);
-  TalonFX arm = new TalonFX(0);
   TalonFX rightFront = new TalonFX(4);
   TalonFX rightBack = new TalonFX(3);
   TalonFX leftFront = new TalonFX(2);
   TalonFX leftBack = new TalonFX(1);
+  TalonFX arm = new TalonFX(0);
   DifferentialDrive tank = new DifferentialDrive(leftFront, rightFront);
   double driveControllerDeadband = 0.04;
   double minJoystickDriveResponse = 0.24;
@@ -75,6 +75,10 @@ public class Robot extends TimedRobot {
     TalonFXConfiguration motorConfigs = new TalonFXConfiguration();
     motorConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     motorConfigs.MotorOutput.Inverted = isInverted ? InvertedValue.Clockwise_Positive : InvertedValue.CounterClockwise_Positive;
+    motorConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
+    motorConfigs.CurrentLimits.SupplyCurrentLimit = 80.0;
+    motorConfigs.CurrentLimits.SupplyCurrentThreshold = 7.0;
+    motorConfigs.CurrentLimits.SupplyTimeThreshold = 0.2;
     motorConfigs.Slot0.kP = 0.8;
     motorConfigs.Slot0.kI = 2.0;
     motorConfigs.Slot0.kD = 0.006;
